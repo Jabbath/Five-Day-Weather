@@ -31,7 +31,7 @@ class Day extends React.Component {
 
 class App extends React.Component {
 	render(){
-		//An array with weather objects for the next 7 days
+		//An array with weather objects for the next 5 days
 		const days = this.props.days;
 		
 		//Make a weather pane for each day
@@ -54,26 +54,17 @@ function renderApp(weatherData){
 }
 renderApp([{day: "Mon", low: "1", high: "10", weather: "stormy"}, {day: "Tue", low: "1", high: "10", weather: "stormy"}]);
 
-//Calls the open weather API for a 16 day forecast
-function get7DayForecast(callback){
+//Calls the open weather API for a 5 day forecast
+function get5DayForecast(callback){
 	const APIKey = key.key;
 	
-	var request = new XMLHttpRequest();
-	
-	request.onreadystatechange = function(){
-		if(this.readyState == 4 && this.status == 200){
-			callback(request.responseText);
-			console.log(request.responseText);
-		}
-	}
-	
-	request.open("GET", "https://www.api.openweathermap.org/data/2.5/forecast/daily?q=vancouver&cnt=7&appid=" + APIKey, true);
-	request.send();
+	fetch("http://localhost:3001?appid=" + APIKey).then(resp => resp.json())
+		.then(body => callback(body));
 }
 
-function handle7DayData(data){
+function handle5DayData(data){
 	console.log(data);
 }
 
-get7DayForecast(handle7DayData);
+get5DayForecast(handle5DayData);
 
