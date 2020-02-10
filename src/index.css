@@ -9,6 +9,8 @@ h1 {
 #weather {
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
+	padding-left: 25px;
+	padding-right: 25px;
 }
 
 .day img {

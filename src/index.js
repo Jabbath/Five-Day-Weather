@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import key from './key.js';
 
 /*Describes the app. 
 Is above the weather panels.*/
 class Header extends React.Component {
 	render(){
-		return <h1>Your Weekly Weather</h1>;
+		return <h1>Your Weekly Weather for Vancouver</h1>;
 	}
 }
 
@@ -44,7 +45,35 @@ class App extends React.Component {
 	}
 }
 
-ReactDOM.render(
-  <App days={[{day: "Mon", low: "1", high: "10", weather: "stormy"}, {day: "Tue", low: "1", high: "10", weather: "stormy"}]} />,
-  document.getElementById('root')
-);
+//Given weather data from the API, starts rendering the app
+function renderApp(weatherData){
+	ReactDOM.render(
+	  <App days={weatherData} />,
+	  document.getElementById('root')
+	);
+}
+renderApp([{day: "Mon", low: "1", high: "10", weather: "stormy"}, {day: "Tue", low: "1", high: "10", weather: "stormy"}]);
+
+//Calls the open weather API for a 16 day forecast
+function get7DayForecast(callback){
+	const APIKey = key.key;
+	
+	var request = new XMLHttpRequest();
+	
+	request.onreadystatechange = function(){
+		if(this.readyState == 4 && this.status == 200){
+			callback(request.responseText);
+			console.log(request.responseText);
+		}
+	}
+	
+	request.open("GET", "https://www.api.openweathermap.org/data/2.5/forecast/daily?q=vancouver&cnt=7&appid=" + APIKey, true);
+	request.send();
+}
+
+function handle7DayData(data){
+	console.log(data);
+}
+
+get7DayForecast(handle7DayData);
+
