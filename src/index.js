@@ -38,7 +38,7 @@ class WeatherImage extends React.Component {
 			src = "https://cdn1.iconfinder.com/data/icons/weather-forecast-meteorology-color-1/128/weather-sunny-512.png";
 		}
 		else if(weather === "Clouds"){
-			src = "https://cdn2.iconfinder.com/data/icons/nature-glyph-3/128/131-512.png";
+			src = "https://icons-for-free.com/iconfiles/png/512/clouds+cloudy+weather+icon-1320196635828207342.png";
 		}
 		
 		return <img src={src}></img>;
