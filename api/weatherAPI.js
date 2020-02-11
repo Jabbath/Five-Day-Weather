@@ -59,7 +59,7 @@ function extractCritical(weatherDay){
 	const day = dateToDay(new Date(weatherDay.dt_txt));
 	const main = weatherDay.weather[0].main;
 	
-	return {"temp": temp, "day": day, "main": main};
+	return {"temp": temp, "day": day, "weather": main};
 }
 
 /*Given the raw 5 day forecast JSON from
@@ -82,7 +82,7 @@ function filterData(body){
 		const date = new Date(cur.dt_txt);
 		
 		//Check that the time is right and we're not getting a duplicate
-		if(date.getHours() == 12 && !(date.getDay() == firstDay.getDay())){
+		if(date.getHours() === 12 && !(date.getDay() === firstDay.getDay())){
 			console.log(date.getDay());
 			console.log(firstDay.getDay());
 			weatherArray.push(extractCritical(cur));
@@ -100,7 +100,7 @@ app.get("", (req, res, next) => {
 	console.log(appid);
 	
 	request("http://api.openweathermap.org/data/2.5/forecast?q=vancouver&appid=" + appid, function(err, resp, body){
-		if(!err && resp.statusCode == 200){
+		if(!err && resp.statusCode === 200){
 			res.header("Access-Control-Allow-Origin", "*");
 			res.json(filterData(body));
 		}

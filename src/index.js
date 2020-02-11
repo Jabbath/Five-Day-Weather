@@ -11,6 +11,40 @@ class Header extends React.Component {
 	}
 }
 
+/*The image for each weather pane. Displays an image
+corresponding to the given weather.*/
+class WeatherImage extends React.Component {
+	render(){
+		const weather = this.props.weather;
+		console.log(weather);
+		var src;
+		
+		if(weather === "Thunderstorm"){
+			src = "https://image.flaticon.com/icons/svg/2174/2174026.svg";
+		}
+		else if(weather === "Drizzle"){
+			src = "https://cdn4.iconfinder.com/data/icons/wthr-color/32/cloud-drizzle-512.png";
+		}
+		else if(weather === "Rain"){
+			src = "https://cdn3.iconfinder.com/data/icons/weather-ios-11-1/50/Heavy_Rain_Night_Rain_Raindrops_Apple_iOS_Flat_Weather-512.png";
+		}
+		else if(weather === "Snow"){
+			src = "https://cdn0.iconfinder.com/data/icons/cloudy-2/425/snow-512.png";
+		}
+		else if(weather === "Atmosphere"){
+			src = "https://image.flaticon.com/icons/png/512/672/672897.png";
+		}
+		else if(weather === "Clear"){
+			src = "https://cdn1.iconfinder.com/data/icons/weather-forecast-meteorology-color-1/128/weather-sunny-512.png";
+		}
+		else if(weather === "Clouds"){
+			src = "https://cdn2.iconfinder.com/data/icons/nature-glyph-3/128/131-512.png";
+		}
+		
+		return <img src={src}></img>;
+	}
+}
+
 /*A pane for a single day of weather.
 Features the day, the temp,
 and also an image of the weather.*/
@@ -20,10 +54,10 @@ class Day extends React.Component {
 		const weather = this.props.weather;
 		const temp = this.props.temp;
 		
-		return (<div class="day">
+		return (<div className="day">
 			<div>{day}</div>
-			<img src="https://cdn1.iconfinder.com/data/icons/weather-bright-flat-design/128/rainy-cloud-rain-weather-512.png"></img>
-			<div class="temperatures">Temperature: {temp}</div>
+			<WeatherImage weather={weather} />
+			<div className="temperatures">Temperature: {temp}°C</div>
 		</div>);
 	}
 }
@@ -35,7 +69,7 @@ class App extends React.Component {
 		
 		//Make a weather pane for each day
 		const dayPanes = days.map((dayInfo) => <Day day={dayInfo.day} temp={dayInfo.temp} weather={dayInfo.weather} />)
-		return (<div>
+		return (<div id="weatherContainer">
 				<Header />
 				<div id="weather">
 					{dayPanes}

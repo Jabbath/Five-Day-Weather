@@ -1,5 +1,8 @@
-body {
+html, body {
 	font-family: roboto, sans-serif;
+	margin: 0;
+	height: 100%;
+	overflow: hidden;
 }
 
 h1 {
@@ -11,6 +14,7 @@ h1 {
 	grid-template-columns: repeat(5, 1fr);
 	padding-left: 25px;
 	padding-right: 25px;
+	align-items: center;
 }
 
 .day img {
@@ -19,4 +23,13 @@ h1 {
 
 .day {
 	text-align: center;	
+}
+
+.day:hover {
+    -webkit-filter: brightness(70%);
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    transition: all 1s ease;
 }
